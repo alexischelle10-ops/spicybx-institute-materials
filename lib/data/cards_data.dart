@@ -3,15 +3,24 @@ import '../models/affirmation_card.dart';
 
 /// One behavioral scene image per domain — used as a visual anchor on card backs.
 /// These illustrate the operational definition in action.
+/// Using stable Unsplash direct image URLs (no auth required, CORS-friendly).
 const Map<String, String> domainImages = {
-  'character': 'https://sspark.genspark.ai/cfimages?u1=WmWPQlvGOgyPyxEyP7FJc4Il4Ep1Maw5crQbz2eWFDLXY432SMmOSexjNn1gVUa9exCbb7gv2q8YMAK6%2FOI0TVzRfAZDVmv0fzERm1kyldKE2IZwkHmsZOZUF8jyXpeZjRYqNACG&u2=g%2BkniZ5eiZr9zFIo&width=2560',
-  'workplace': 'https://sspark.genspark.ai/cfimages?u1=38c52fpCR9Vjj15FBE0sRBixGCYFmiifDdmDa%2BwJFUEpO%2BeKqi3SjwGMwEbKzQEhPhj0cfR6ujrEnSfGEpdAwIe2H5v64%2BtfqhRo5GkBCUFd6j1mSHWc7zuL%2B9TJmjf3p5k84W%2Bf%2BP1dpz5TR8km9LBvzTuXW9%2BcszEdWXr%2F3QWa5KldOh9oCxPu2hiTYhoZLM1sQndtruNUawyzTsdar85UcFIaj9EW7fBdxTb5TsUYXjDl1ZmkK38VtNw%3D&u2=zeQ0BaYCGPMI%2B5Co&width=2560',
-  'relationship': 'https://sspark.genspark.ai/cfimages?u1=7FiggIayCNm4KpeKNj5%2FS1uDQgPO1M11D5oNcaG7kqZmIS5%2BSdd8iOVoYHba%2FVq4oXW7sksRmd54UYMDbRdSPGnpJsjZLKzp9LVtOBe%2FQ01%2FtMCEwrKjVVJr1fCR%2FI5an5k2IsPZtPAXYv9aghKHvhvXCRThzrQa8lIALDA%2BzYQrKVycTeWUsfn9wAhPfrTgAPjC4RTCvAf%2BBKq9mT5%2BhJMXwaquGRsDkh2tnUeefKfpDj4fM%2FL%2FZxegkoNbCpvoFGqWNk3VJwwf3QZ%2FEXQOvg%3D%3D&u2=MIuUw0IsP6JPqVdt&width=2560',
-  'community': 'https://sspark.genspark.ai/cfimages?u1=lME6Rq9%2FCshvq74XrESKMEOckch8FYwuhrPi0Kj3YJYJ75YglVgfqZbnmaoyBJd423SxY6fi2bLb%2BgOz0sCct754v4oKbN%2FrCpQwHw6nf6aW1Jm0A1cmymLhGSpvpqoO8Jup7Nza7bQBl%2FgE9TwswBWmmzFIvKYXCw%3D%3D&u2=QFEYFm8s98Ny%2BfPs&width=2560',
-  'safety': 'https://sspark.genspark.ai/cfimages?u1=OcmSroe5rLwVnGFIKL2rvJiuNuOyPmegl16U2sP8LzHjVCFvn2QlxIIleYH7XUe25UFvcYohpNOw2PiA%2F%2FSxkkOn2TqUP8XSxJ8VxRsr50305gN%2FtxSMotOcWD1NXw%3D%3D&u2=fQTn9Dq2avOPVvuv&width=2560',
-  'leadership': 'https://sspark.genspark.ai/cfimages?u1=Ezqe0qDSnd%2FAqME%2B9c160XZqJh7k0LG6fGJEALN8ZPNs%2BSY80fkbcWV6PbIj79sGxO31kKATU%2FAogUEVDNa8U09gerpBiO%2Fnp2N%2Fu71oLFrXPVfi1UHp02plr8lRHPxm2%2FkjyX0TNkFodAxZBcTzTA5NOhW2HwMIV6NKriUI5SKN9axZX9yJs48zWRlYcdn0RImgeO6jVQSJGnCigK8SzJ2HOB0FgSSQJPEkPYfF3qBp7lVW%2F3MinABVK6UNcQXAchmJXaEfB%2BEzJUyksnhjgBN9HhBCG349xZDcTx5rZdc%3D&u2=TQlPIWMZB1%2BOOm86&width=2560',
-  'regulation': 'https://sspark.genspark.ai/cfimages?u1=2KruYYeQbv8%2FeYgaGzrNPS7BwKK18kxPOcD50HtymPX3nD6wt8OZXD4eOrVC39CCZTGZnBl7BoiHr0pRyePpT9u98HKi4KqXdIIRYyFQaEhC64BjkaTS8Z%2FkfmnJkE6Dnt%2BWktBZYZOZh9XBgowSELjeKdgyJj5OrBFc0KlEtOENLXI2S53tfhGmMeffOPpb409D89IOP8NxcA%2F2g1Im2Cc54DdPb71GqgMuWlNGC8TkN2acrE0icL5nCe8tqUOmKtc%2FhMNHDwy3HshD%2FQVnrinuW5zdU6fGQEdYnD1dLANr7hVvmPmUx5aJRLm6guRmUFk%3D&u2=JGATCeryvLzj2s1S&width=2560',
-  'independence': 'https://sspark.genspark.ai/cfimages?u1=zdtIwZ8H7krYuZ1f2J%2BL%2F0oOXn0lY5tRR8tYO%2FLxAbUxmoyxT5nUbnOcpw5Z7TLxxw8grM%2BhfZmZp5%2FkMTsaFBk5re0VCQttQ043FuaTbQUYIxhrTgDU0a4Mx%2BYXenKTjX9RXseszVSJcxAqN%2B4Ln0vcwm2NJUSejYQE&u2=L0u1zEiam6Wb7Mem&width=2560',
+  // Character Strengths — student being honest, doing the right thing
+  'character': 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&fit=crop&auto=format',
+  // Workplace Skills — professional collaboration, teamwork at work
+  'workplace': 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&fit=crop&auto=format',
+  // Relationship Skills — two people talking kindly, active listening
+  'relationship': 'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?w=600&fit=crop&auto=format',
+  // Community Skills — volunteering, people helping in community
+  'community': 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&fit=crop&auto=format',
+  // Safety Skills — following rules, protective responsible behavior
+  'safety': 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&fit=crop&auto=format',
+  // Leadership Skills — youth leading a group, peer mentorship
+  'leadership': 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600&fit=crop&auto=format',
+  // Emotional Regulation — calm breathing, mindfulness, self-control
+  'regulation': 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&fit=crop&auto=format',
+  // Independent Living — young adult managing daily life tasks
+  'independence': 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&fit=crop&auto=format',
 };
 
 final Map<String, DomainInfo> domains = {
